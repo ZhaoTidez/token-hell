@@ -1,345 +1,340 @@
 # Token HELL
 
-[English](README.en.md)
+[中文版](README.zh.md)
 
-## 1. 团队成员信息
+## 1. Project Overview
 
-**赵玺超** — 学号：1120230922
+### 1.1 Core Concept
 
-**高天翊** — 学号：1120231173
+**Token Survivors: The Context War** is an innovative indie game that blends bullet-hell shooting with language generation. Players control a cursor on a battlefield filled with falling vocabulary, collect English words to construct sentences, and interact with a large language model in real-time, experiencing the unique charm of "context warfare."
 
-## 2. 项目概述
+### 1.2 Setting
 
-### 2.1 核心概念
+Deep within the digital world, a war over the essence of language is unfolding. Countless words rain down like meteors — some are normal English words, others are corrupted "garbled" tokens. As a "Context Warrior," you must shoot or absorb these words to build meaningful sentences, feed them to a large language model to receive replies, while dodging deadly bullet barrages.
 
-**Token 幸存者：上下文之战** 是一款融合了弹幕射击与语言生成概念的创新型独立游戏。玩家在充满飘落词汇的战场中操控光标，收集英语单词构建句子，与大语言模型展开实时互动，体验"上下文战争"的独特魅力。
+### 1.3 Main Objectives
 
-### 2.2 背景设定
-
-在数字世界的深处，一场关乎语言本质的战争正在进行。无数词汇如同流星般从天空坠落，它们有些是正常的英语单词，有些则是扭曲的"乱码"。玩家作为一名"上下文战士"，需要通过击落或吞噬这些词汇来构建有意义的句子，喂给大模型获取回复，同时躲避致命的弹幕攻击。
-
-### 2.3 主要目标
-
-- **生存挑战**：在不断升级的弹幕中存活尽可能长的时间
-- **句子构建**：收集词汇构建通顺的英文句子
-- **分数追求**：通过正确回复获取高分，挑战排行榜
-- **上下文战争**：与AI互动，根据模型回复创造独特的游戏体验
+- **Survival Challenge**: Stay alive as long as possible through escalating bullet barrages
+- **Sentence Construction**: Collect vocabulary to build coherent English sentences
+- **Score Pursuit**: Earn high scores through correct replies and climb the leaderboard
+- **Context War**: Interact with AI to create a unique gameplay experience based on model responses
 
 <br />
 
 ***
 
-## 3. 快速入门
+## 2. Quick Start
 
-### 3.1 API配置（首次运行前必看）
+### 2.1 API Configuration (Required Before First Run)
 
-游戏支持通过 API 与大模型交互。首次运行前，请配置 `api_config.json` 文件：
+The game supports interacting with large language models via API. Before running for the first time, configure the `api_config.json` file:
 
 ```json
 {
-    "api_key": "你的API密钥",
+    "api_key": "your-api-key",
     "base_url": "https://api.deepseek.com/v1",
     "model": "deepseek-chat"
 }
 ```
 
-**支持的API服务商：**
+**Supported API Providers:**
 
-| 服务商 | base_url 示例 | 说明 |
-| ----- | ------------- | ---- |
-| DeepSeek | `https://api.deepseek.com/v1` | 推荐，支持良好 |
-| OpenAI | `https://api.openai.com/v1` | 支持 |
-| Anthropic | `https://api.anthropic.com` | 支持 |
-| 其他兼容API | 根据服务商提供 | 需OpenAI兼容格式 |
+| Provider | base_url Example | Notes |
+| -------- | ---------------- | ----- |
+| DeepSeek | `https://api.deepseek.com/v1` | Recommended, well-supported |
+| OpenAI | `https://api.openai.com/v1` | Supported |
+| Anthropic | `https://api.anthropic.com` | Supported |
+| Other Compatible APIs | Varies by provider | Must support OpenAI-compatible format |
 
-> ⚠️ 如果不配置APIKey，游戏也可以运行（使用朴素语法判定），但体验会大打折扣。
+> If you don't configure an API key, the game can still run (using basic grammar checking), but the experience will be significantly reduced.
 
-### 3.2 操作说明
+### 2.2 Controls
 
-#### 键盘按键
+#### Keyboard
 
-| 按键 | 功能 |
-| ---- | ---- |
-| `↑ ↓ ← →` | 移动光标 |
-| `Z` | 射击（击落词汇） |
-| `Enter` | 提交句子至大模型 |
-| `Backspace` | 删除最后添加的词汇 |
-| `Q` | 释放技能（消耗能量） |
+| Key | Function |
+| --- | -------- |
+| `↑ ↓ ← →` | Move cursor |
+| `Z` | Shoot (knock down words) |
+| `Enter` | Submit sentence to LLM |
+| `Backspace` | Delete last added word |
+| `Q` | Release skill (costs energy) |
 
-#### 游戏目标
+#### Gameplay Goals
 
-1. **躲避弹幕**：画面中不断有子弹飞来，碰到会掉血
-2. **收集词汇**：吃掉飘落的单词，它们会进入底部"上下文窗口"
-3. **构建句子**：组合出通顺的英文句子
-4. **提交给AI**：按Enter键，大模型会评价你的句子并回复
-5. **控制温度**：时间越长，温度越高，弹幕越疯狂！
-6. **追求低PPL**：句子越通顺，PPL越低，得分越高！
+1. **Dodge Bullets**: Bullets constantly fly across the screen; getting hit reduces HP
+2. **Collect Words**: Absorb falling words into the "Context Window" at the bottom
+3. **Build Sentences**: Combine words into coherent English sentences
+4. **Submit to AI**: Press Enter — the LLM evaluates your sentence and replies
+5. **Control Temperature**: The longer you play, the higher the temperature, the more chaotic the bullets!
+6. **Pursue Low PPL**: The more fluent your sentence, the lower the PPL, the higher the score!
 
 <br />
 
 ***
 
-## 4. 创新点与特色玩法
+## 3. Innovation & Unique Features
 
-> "当弹幕遇见语言，当射击变成造句，这场游戏将彻底颠覆你的认知！"
+> "When bullet-hell meets language, when shooting becomes sentence-building — this game will completely change your perception!"
 
-### 4.1 这不仅仅是一款弹幕游戏
+### 3.1 This Is Not Just a Bullet-Hell Game
 
-#### 🎯传统弹幕游戏 vs 上下文战争
+#### Traditional Bullet-Hell vs. Context War
 
-| 你以为的弹幕游戏 | 上下文战争的真相      |
-| -------- | ------------- |
-| 疯狂躲避子弹   | 疯狂收集单词        |
-| 消灭敌人得分   | 吃掉词汇构建句子得分    |
-| 死了重来     | 句子越造越顺，越玩越有文化 |
-| 无限重复的绝望  | AI陪你玩，每次都是新体验 |
+| What You Think Bullet-Hell Is | The Truth of Context War |
+| ----------------------------- | ------------------------ |
+| Frantically dodging bullets | Frantically collecting words |
+| Killing enemies for points | Eating words and building sentences for points |
+| Die and start over | The more you build sentences, the more cultured you get |
+| Infinite repetitive despair | AI plays with you — every game is a new experience |
 
-#### 🧠你的大脑需要同时运转
+#### Your Brain Needs to Run on All Cylinders
 
-- **右手控制移动**：躲子弹、走位
-- **左手控制射击**：击落不需要的词
-- **大脑构建句子**：思考如何把吃到的词组成通顺的英文
-- **还要应付AI**：它会评价你的句子，还会给你回怼回来
+- **Right hand controls movement**: Dodge bullets, maneuver
+- **Left hand controls shooting**: Shoot down unwanted words
+- **Brain builds sentences**: Think about how to form coherent English from collected words
+- **Also deal with AI**: It evaluates your sentences and fires back at you
 
-### 4.2 让AI成为你的"对手"兼"队友"
+### 3.2 Let AI Be Your "Opponent" and "Teammate"
 
-想象一下这个场景：
+Imagine this scenario:
 
-> 你精心构建了一句 "I am happy to see you"
-> 按下Enter，AI说："True, That makes me happy too!"
-> 然后屏幕上开始掉落 "That makes me happy too" 的所有单词
-> 你兴奋地一个个击落，每个+50分！
-> 大模型回复奖励 +100 分！
-> 爽感爆棚！
+> You carefully construct: "I am happy to see you"
+> Press Enter. AI responds: "True, That makes me happy too!"
+> Then all the words from "That makes me happy too" start falling on screen
+> You excitedly shoot them down one by one, each worth +50 points!
+> LLM reply bonus: +100 points!
+> Absolutely exhilarating!
 
-或者这个场景：
+Or this scenario:
 
-> 你随手乱吃了一些词："xkjl qwrt am happy"
-> AI冷酷地回复："False"
-> 然后一堆红色的乱码词呼啸而来，弹幕密集得像下雨...
-> 吃掉乱码还要扣分！血亏！
+> You randomly grab some words: "xkjl qwrt am happy"
+> AI coldly responds: "False"
+> Then a bunch of red garbled words come screaming in, the bullets are dense as rain...
+> Eating garbled words costs points! What a loss!
 
-**这就是上下文战争的魅力：你的语言能力直接决定游戏难度！**
+**This is the magic of Context War: your language ability directly determines game difficulty!**
 
-### 4.3 Overload系统：贪心是有代价的
+### 3.3 Overload System: Greed Has a Price
 
-📦 **上下文窗口** - 你的句子存储空间
+**Context Window** — Your sentence storage
 
-- 你最多可以存储 **15个词**
-- 装的词越多，"过载率"越高
-- 过载100%时，窗口变红警告！
-- 乱码词会大幅增加过载度
+- You can store up to **15 words**
+- The more words you pack, the higher the "overload rate"
+- At 100% overload, the window turns red as a warning!
+- Garbled words significantly increase overload
 
-**是疯狂吃词追求高分？还是精挑细选保证质量？这个抉择让你欲罢不能！**
+**Do you frantically collect words for high scores? Or carefully select for quality? This dilemma will keep you hooked!**
 
-### 4.6 多维度评分：总有一项能让你上瘾
+### 3.4 Multi-Dimensional Scoring: Something for Every Play Style
 
-🏆 **不只有一种方式刷高分**
+**More than one way to rack up high scores**
 
-| 得分方式    | 说明            | 适合玩家类型 |
-| ------- | ------------- | ------ |
-| 击落词     | 每个 +20\~50 分  | 射击流    |
-| 吃词      | 每个 +10\~-10 分 | 策略流    |
-| 大模型回复正确 | +100 分        | 语言流    |
-| PPL评分   | 句子越通顺，基础分越高   | 学霸流    |
+| Scoring Method | Description | Best For |
+| -------------- | ----------- | -------- |
+| Shooting down words | +20~50 points each | Shooter playstyle |
+| Eating words | +10~-10 points each | Strategic playstyle |
+| Correct LLM reply | +100 points | Language playstyle |
+| PPL scoring | More fluent sentences = higher base score | Academic playstyle |
 
-### 4.7 解决传统游戏痛点
+### 3.5 Solving Traditional Game Pain Points
 
-还在抱怨传统弹幕游戏？
+Tired of traditional bullet-hell games?
 
-| 传统弹幕游戏     | 上下文战争说："我来解决！"    |
-| ---------- | ----------------- |
-| 玩多了无聊，套路固定 | AI随机回复，每次都是新游戏    |
-| 射击没有意义感    | 每发子弹都是语言决策！       |
-| 难度提升靠堆怪    | 温度+Rank双维度难度曲线    |
-| 分数只是数字     | 分数=PPL质量，玩游戏还能学英语？ |
-| 死了就忘了白玩了   | 句子构建能力是隐形成长       |
+| Traditional Bullet-Hell | Context War Says: "I Got You!" |
+| ----------------------- | ----------------------------- |
+| Boring after a while, fixed patterns | AI random replies — every game is new |
+| Shooting feels meaningless | Every bullet is a language decision! |
+| Difficulty increased by adding more enemies | Temperature + Rank dual-dimension difficulty curve |
+| Score is just a number | Score = PPL quality — learn English while gaming? |
+| Forget everything when you die | Sentence-building ability is invisible growth |
 
 ***
 
-## 5. 游戏玩法说明
+## 4. Gameplay Details
 
-### 5.1 核心机制
+### 4.1 Core Mechanics
 
-#### 5.1.1 玩家操控
+#### 4.1.1 Player Controls
 
-| 按键                    | 功能         |
-| --------------------- | ---------- |
-| `↑ ↓ ← →` 或 `W A S D` | 移动光标       |
-| `Z`                   | 射击（击落词汇）   |
-| `Enter`               | 提交句子至大模型   |
-| `Backspace`           | 删除最后添加的词汇  |
-| `Q`                   | 释放技能（消耗能量） |
+| Key | Function |
+| --- | -------- |
+| `↑ ↓ ← →` or `W A S D` | Move cursor |
+| `Z` | Shoot (knock down words) |
+| `Enter` | Submit sentence to LLM |
+| `Backspace` | Delete last added word |
+| `Q` | Release skill (costs energy) |
 
-#### 5.1.2 词汇系统
+#### 4.1.2 Vocabulary System
 
-游戏中的词汇分为以下几类：
+Words in the game are categorized as follows:
 
-| 类型                  | 示例                       | 颜色标识 | 行为特征       |
-| ------------------- | ------------------------ | ---- | ---------- |
-| 内容名词 (Content Noun) | time, world, data, model | 青色   | 发射慢速自机狙弹幕  |
-| 内容动词 (Content Verb) | runs, thinks, learns     | 绿色   | 发射慢速自机狙弹幕  |
-| 内容形容词 (Content Adj) | fast, deep, bright       | 蓝绿色  | 发射慢速自机狙弹幕  |
-| 功能词 (Function Word) | the, a, is, and          | 黄色   | 概率性发射弹幕    |
-| 乱码词 (Noise Word)    | xkjl, qwrt, zxcv         | 红色   | 发射高难度弹幕，有毒 |
+| Type | Example | Color | Behavior |
+| ---- | ------- | ----- | -------- |
+| Content Noun | time, world, data, model | Cyan | Fires slow aimed bullets |
+| Content Verb | runs, thinks, learns | Green | Fires slow aimed bullets |
+| Content Adj | fast, deep, bright | Teal | Fires slow aimed bullets |
+| Function Word | the, a, is, and | Yellow | Probability-based bullet firing |
+| Noise Word | xkjl, qwrt, zxcv | Red | Fires high-difficulty bullets, toxic |
 
-#### 5.1.3 残机（生命）系统
+#### 4.1.3 Life System
 
-- 初始生命：**2条**（用爱心表示）
-- 生命恢复：吃到残机碎片增加 **10%** 生命条
-- 生命条达到 **100%** 时增加 **1条** 生命
-- 生命归零后游戏结束
-- 受伤后拥有 **5秒无敌时间**
+- Starting lives: **2** (represented by hearts)
+- Life recovery: Collecting life fragments adds **10%** to the life bar
+- When life bar reaches **100%**, gain **1 extra life**
+- Game over when lives reach zero
+- **5 seconds of invincibility** after taking damage
 
-### 5.2 胜利条件与分数计算
+### 4.2 Victory Conditions & Score Calculation
 
-#### 5.2.1 胜利条件
+#### 4.2.1 Victory Conditions
 
-游戏为无尽模式，没有固定胜利条件。玩家追求：
+This is an endless-mode game with no fixed victory conditions. Players aim to:
 
-- **存活更长时间**
-- **获得更高分数**
-- **构建更通顺的句子**
+- **Survive longer**
+- **Achieve higher scores**
+- **Build more fluent sentences**
 
-#### 5.2.2 分数计算
+#### 4.2.2 Score Calculation
 
-| 动作            | 分数变化    |
-| ------------- | ------- |
-| 大模型正确回复（True） | +100 分  |
-| 击破正确回复的词      | +50 分/词 |
-| 吃掉常态词         | +10 分   |
-| 击落常态词         | +20 分   |
-| 吃掉乱码词         | -10 分   |
+| Action | Score Change |
+| ------ | ------------ |
+| Correct LLM reply (True) | +100 points |
+| Shooting down words from correct reply | +50 points/word |
+| Eating normal words | +10 points |
+| Shooting down normal words | +20 points |
+| Eating garbled words | -10 points |
 
-### 5.3 主要流程
-
-```
-游戏开始
-    ↓
-输入API Key（可选跳过）
-    ↓
-第一Section开始
-    ↓
-词汇持续掉落 → 玩家射击/吃词
-    ↓
-构建句子 → 按Enter提交
-    ↓
-大模型判断并回复
-    ↓
-Section结算 → 计算分数 → 下一Section
-    ↓
-生命归零 → 游戏结束 → 显示最终分数
-```
-
-### 5.4 Rank（难度）系统
-
-- **Rank = 当前Section数量**，随游戏进程不断提升
-- 影响内容：
-  - 词汇掉落速度加快
-  - 弹幕密度增加
-  - 乱码词出现概率提高
-
-### 5.5 大模型交互逻辑
-
-#### 5.5.1 Prompt 设计
-
-提交给大模型的prompt（英文）：
+### 4.3 Main Flow
 
 ```
-请你根据以下句子，先判断句子是否是人话、可以理解，如果是，回答True，否则回答False。
-如果是True，后面输出一句对这个句子的回复。
-请按照如下格式回复：'{True}, {回复句子}'或者'{False}'。
-必须严格遵照这个格式、用花括号括起来回复的内容，并且不输出任何其他的废话。
-回复的句子请控制在20个token以内。
+Game Start
+    ↓
+Enter API Key (optional, can skip)
+    ↓
+First Section Begins
+    ↓
+Words continuously fall → Player shoots/eats words
+    ↓
+Build sentence → Press Enter to submit
+    ↓
+LLM evaluates and replies
+    ↓
+Section Settlement → Calculate Score → Next Section
+    ↓
+Lives reach zero → Game Over → Display Final Score
 ```
 
-#### 5.5.2 回复处理
+### 4.4 Rank (Difficulty) System
 
-| 判断结果      | 后续处理                              |
-| --------- | --------------------------------- |
-| **True**  | 回复句子中的所有词按序掉落，击破每个词+50分，回复加分+100分 |
-| **False** | 掉落 5 + Rank 个乱码词，发射高难度弹幕          |
+- **Rank = Current Section number**, increases as the game progresses
+- Effects:
+  - Word drop speed increases
+  - Bullet density increases
+  - Garbled word appearance rate rises
 
-#### 5.5.3 降级处理
+### 4.5 LLM Interaction Logic
 
-若API调用失败或回复格式错误：
+#### 4.5.1 Prompt Design
 
-- 弹出错误提示
-- 使用朴素语法判定句子通顺性
-- 回复使用预制句子
+The prompt submitted to the LLM (English):
 
-### 5.6 弹幕发射系统
+```
+Please evaluate the following sentence: determine if it is understandable human language.
+If yes, reply "True" followed by a response sentence.
+If no, reply "False".
+Must strictly follow this format: '{True}, {response sentence}' or '{False}'.
+Do not output any additional text.
+Keep the response sentence under 20 tokens.
+```
 
-#### 5.6.1 弹幕类型
+#### 4.5.2 Response Processing
 
-| 弹幕来源  | 难度 | 特征        |
-| ----- | -- | --------- |
-| 常态词弹幕 | 中等 | 较慢，自机狙为主  |
-| 乱码词弹幕 | 高  | 快速，多方向开花弹 |
-| 回复词弹幕 | 简单 | 慢速自机狙     |
+| Judgment | Subsequent Handling |
+| -------- | ------------------- |
+| **True** | All words from the response fall in order; each word worth +50 points, reply bonus +100 points |
+| **False** | 5 + Rank garbled words fall, firing high-difficulty bullets |
 
-#### 5.6.2 弹幕API
+#### 4.5.3 Fallback Handling
+
+If the API call fails or the response format is incorrect:
+
+- Display error notification
+- Use basic grammar checking to evaluate sentence fluency
+- Use pre-written fallback sentences
+
+### 4.6 Bullet System
+
+#### 4.6.1 Bullet Types
+
+| Source | Difficulty | Characteristics |
+| ------ | ---------- | --------------- |
+| Normal word bullets | Medium | Slow, mainly aimed shots |
+| Garbled word bullets | High | Fast, multi-directional spread |
+| Reply word bullets | Easy | Slow aimed shots |
+
+#### 4.6.2 Bullet API
 
 ```python
-createBullet(color, velocity, angle, 是否aimplayer)
+createBullet(color, velocity, angle, aimplayer)
 ```
 
-- **angle**: 0-360度
-- **aimplayer=true**: angle为基于指向玩家的角度的偏移量
-- **aimplayer=false**: angle为绝对角度（正右为0度，逆时针旋转）
+- **angle**: 0-360 degrees
+- **aimplayer=true**: angle is the offset from the direction pointing at the player
+- **aimplayer=false**: angle is the absolute angle (0 = right, counterclockwise rotation)
 
 ***
 
-## 6. 技术说明
+## 5. Technical Details
 
-### 6.1 运行环境要求
+### 5.1 Requirements
 
-#### 6.1.1 操作系统
+#### 5.1.1 Operating System
 
-- **Windows 10/11**（主要测试平台）
-- macOS / Linux（理论兼容，未测试）
+- **Windows 10/11** (primary testing platform)
+- macOS / Linux (theoretically compatible, untested)
 
-#### 6.1.2 运行环境
+#### 5.1.2 Runtime
 
-**Python 版本**：Python 3.10 或更高版本
+**Python Version**: Python 3.10 or higher
 
-**核心依赖**：
+**Core Dependencies**:
 
 ```
 pygame>=2.0.0
 ```
 
-**可选依赖**（用于本地PPL计算）：
+**Optional Dependencies** (for local PPL calculation):
 
 ```
 torch>=1.10.0
 transformers>=4.20.0
 ```
 
-#### 6.1.3 API 支持
+#### 5.1.3 API Support
 
-游戏支持通过 API 与大模型交互，可选配置以下服务商：
+The game supports interacting with large language models via API. You can configure:
 
 - DeepSeek
 - OpenAI
 - Anthropic
-- 任何 OpenAI 兼容 API
+- Any OpenAI-compatible API
 
-### 6.2 编译步骤及运行方法
+### 5.2 Build & Run Instructions
 
-#### 6.2.1 安装依赖
+#### 5.2.1 Install Dependencies
 
 ```bash
-# 使用pip安装核心依赖
+# Install core dependencies
 pip install pygame
 
-# 可选：安装AI支持（用于本地PPL计算）
+# Optional: Install AI support (for local PPL calculation)
 pip install torch transformers
 ```
 
-#### 6.2.3 API配置
+#### 5.2.2 API Configuration
 
-首次运行会读取 `api_config.json` 配置文件：
+On first run, the game reads the `api_config.json` configuration file:
 
 ```json
 {
@@ -349,103 +344,102 @@ pip install torch transformers
 }
 ```
 
-支持的API服务商：
+Supported API providers:
 
 - DeepSeek
 - OpenAI
 - Anthropic
-- 任何OpenAI兼容API
+- Any OpenAI-compatible API
 
-也可选择**无API运行**（使用朴素语法判定）
+You can also choose to **run without an API** (using basic grammar checking).
 
-### 6.3 功能模块简介
+### 5.3 Module Overview
 
-#### 6.3.1 核心模块
+#### 5.3.1 Core Modules
 
-| 模块    | 文件              | 功能描述               |
-| ----- | --------------- | ------------------ |
-| 游戏主循环 | context\_war.py | 主程序入口，游戏循环控制       |
-| 词汇系统  | 内置              | Token类管理各种词汇的掉落与行为 |
-| 弹幕系统  | 内置              | Bullet类管理子弹的发射与碰撞  |
-| 粒子系统  | Particle类       | 视觉效果粒子（爆炸、特效等）     |
+| Module | File | Description |
+| ------ | ---- | ----------- |
+| Main Game Loop | context_war.py | Entry point, game loop control |
+| Vocabulary System | Built-in | Token class manages word drops and behavior |
+| Bullet System | Built-in | Bullet class manages bullet spawning and collision |
+| Particle System | Particle class | Visual effect particles (explosions, effects, etc.) |
 
-#### 6.3.2 AI集成模块
+#### 5.3.2 AI Integration
 
-| 模块    | 类名        | 功能描述           |
-| ----- | --------- | -------------- |
-| PPL评分 | PPLScorer | 计算句子困惑度，评估语言质量 |
-| API调用 | 内置        | 与大模型API交互获取回复  |
-| 降级逻辑  | 内置        | API失败时的朴素语法判定  |
+| Module | Class | Description |
+| ------ | ----- | ----------- |
+| PPL Scoring | PPLScorer | Calculates perplexity to evaluate language quality |
+| API Calls | Built-in | Interacts with LLM API for replies |
+| Fallback Logic | Built-in | Basic grammar checking when API fails |
 
-#### 6.3.3 游戏系统
+#### 5.3.3 Game Systems
 
-| 系统    | 功能描述                                 |
-| ----- | ------------------------------------ |
-| 温度系统  | TemperatureSystem - 随时间增加影响游戏难度与弹幕特性 |
-| 上下文窗口 | ContextWindow - 存储玩家构建的句子            |
-| 残机系统  | Player - 管理生命值、无敌时间等                 |
-| 技能系统  | Player - Q键释放的技能机制                   |
+| System | Description |
+| ------ | ----------- |
+| Temperature System | TemperatureSystem — increases over time, affecting difficulty and bullet behavior |
+| Context Window | ContextWindow — stores the player's constructed sentences |
+| Life System | Player — manages health, invincibility, etc. |
+| Skill System | Player — Q-key skill mechanism |
 
 ***
 
-## 7. AI工具使用说明
+## 6. AI Tool Usage
 
-### 7.1 使用的AI工具清单
+### 6.1 AI Tools Used
 
-| AI工具        | 主要用途       |
-| ----------- | ---------- |
-| **Gemini**  | 项目构想与创新点设计 |
-| **GLM-5.1** | 核心代码实现     |
-| **GPT**     | 代码调优与优化开发  |
+| AI Tool | Primary Use |
+| ------- | ----------- |
+| **Gemini** | Project concept & innovation design |
+| **GLM-5.1** | Core code implementation |
+| **GPT** | Code tuning & optimization |
 
-### 7.2 个人完成部分
+### 6.2 Human-Completed Work
 
-#### 7.2.1 项目初步构想
+#### 6.2.1 Initial Project Concept
 
-- 游戏核心概念设计：**"上下文战争"主题的确定**
-- 融合弹幕射击与语言生成的想法
-- 设计词汇分类系统（Content Noun/Verb/Adj, Function Word, Noise Word）
-- 设计大模型交互的Prompt模板
-- 设计温度系统与幻觉事件机制
+- Core game concept design: **"Context War" theme**
+- The idea of blending bullet-hell shooting with language generation
+- Vocabulary classification system (Content Noun/Verb/Adj, Function Word, Noise Word)
+- LLM interaction prompt template design
+- Temperature system and hallucination event mechanism design
 
-#### 7.2.2 关键创新点设计
+#### 6.2.2 Key Innovation Design
 
-- **Rank系统**：Section递进式难度提升
-- **温度系统**：时间驱动的动态难度曲线
-- **多层次评分**：融合PPL的语言质量评估
-- **Overload机制**：上下文窗口容量压力
-- **幻觉事件系统**：高温触发各种异常效果
+- **Rank System**: Progressive section-based difficulty scaling
+- **Temperature System**: Time-driven dynamic difficulty curve
+- **Multi-layered Scoring**: PPL-based language quality assessment
+- **Overload Mechanism**: Context window capacity pressure
+- **Hallucination Event System**: High temperature triggers various abnormal effects
 
-### 7.3 AI完成部分
+### 6.3 AI-Completed Work
 
-#### 7.3.1 Gemini - 开发细节落地
+#### 6.3.1 Gemini — Development Detail Implementation
 
-与Gemini交互完成以下开发细节：
+Interacted with Gemini to complete:
 
-- **弹幕API设计**：确定`createBullet(color, velocity, angle, aimplayer)`接口规范
-- **粒子效果实现**：爆炸、特效等视觉增强
-- **碰撞检测优化**：性能与准确性的平衡策略
-- **用户体验细节**：无敌时间、视觉效果反馈
+- **Bullet API Design**: Defined `createBullet(color, velocity, angle, aimplayer)` interface
+- **Particle Effects**: Explosions, visual enhancements
+- **Collision Detection Optimization**: Balancing performance and accuracy
+- **UX Details**: Invincibility frames, visual feedback
 
-#### 7.3.2 GLM-5.1 - 核心代码实现
+#### 6.3.2 GLM-5.1 — Core Code Implementation
 
-使用GLM-5.1完成以下代码实现工作：
+Used GLM-5.1 for:
 
-- **游戏主循环架构**：状态管理与帧率控制
-- **Player类**：移动、射击、技能系统
-- **TokenBullet类**：词汇的移动、AI行为、弹幕发射
-- **ContextWindow类**：句子构建、显示、提交逻辑
-- **PPLScorer类**：困惑度计算与评分系统
-- **温度系统**：动态难度曲线实现
-- **API调用逻辑**：多后端支持与错误处理
+- **Main Game Loop Architecture**: State management and frame rate control
+- **Player Class**: Movement, shooting, skill system
+- **TokenBullet Class**: Word movement, AI behavior, bullet firing
+- **ContextWindow Class**: Sentence building, display, submission logic
+- **PPLScorer Class**: Perplexity calculation and scoring system
+- **Temperature System**: Dynamic difficulty curve implementation
+- **API Call Logic**: Multi-backend support and error handling
 
-#### 7.3.3 GPT - 代码调优与优化
+#### 6.3.3 GPT — Code Tuning & Optimization
 
-与GPT交互完成以下优化工作：
+Interacted with GPT for:
 
-- **性能优化**：减少内存占用，优化渲染效率
-- **代码重构**：提高代码可读性与可维护性
-- **边界情况处理**：空输入、超时、格式错误等
-- **更多弹幕样式设计**：丰富游戏视觉效果
-- **游戏平衡调整**：分数系统、生命机制的微调
-
+- **Performance Optimization**: Reducing memory usage, optimizing rendering
+- **Code Refactoring**: Improving readability and maintainability
+- **Edge Case Handling**: Empty input, timeouts, format errors
+- **More Bullet Pattern Design**: Enriching visual effects
+- **Game Balance Tuning**: Score system and life mechanic fine-tuning
